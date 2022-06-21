@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "537618242734",
+    "project_id": "halochats-12ee2",
+    "storage_bucket": "halochats-12ee2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537618242734:android:ec6125f30ae5731fd3a13f",
+        "android_client_info": {
+          "package_name": "com.halochat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537618242734-bbn2mbdt6hg1bg40lishce43vj7rc4i4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKBtIgf7U80nIiR5nuCumsWDaJEehKAjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537618242734-bbn2mbdt6hg1bg40lishce43vj7rc4i4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "537618242734-72smp7mbq37hc3c2lh8b6goiq0r29jp5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.halochat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
