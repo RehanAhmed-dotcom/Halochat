@@ -30,10 +30,14 @@ const Chat = ({navigation}) => {
   const {userdata, token} = useSelector(({USER}) => USER.userData);
   const {fbArray} = useSelector(({USER}) => USER);
   const [list, setList] = useState(fbArray);
+
+  // const [list, setList] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchBar, setSearchBar] = useState(false);
   const [value, setValue] = useState('');
   const [extra, setExtra] = useState(fbArray);
+
+  // const [extra, setExtra] = useState([]);
   // const [a,setA] = useState([])
   // item?.latestMessage[0]?.date
   // ? item.latestMessage[0].date
@@ -211,7 +215,7 @@ const Chat = ({navigation}) => {
             //   // filter(text);
             // }}
           /> */}
-          {list ? (
+          {list.length > 0 ? (
             <FlatList
               data={extra}
               onRefresh={onRefresh}

@@ -314,7 +314,7 @@ const Contact = ({navigation}) => {
             // refreshing={refreshing}
             keyExtractor={item => item.number}
           /> */}
-          {duplicatearr ? (
+          {duplicatearr.length > 0 ? (
             <FlatList
               data={MainArr}
               renderItem={renderItem}
