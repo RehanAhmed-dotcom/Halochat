@@ -1,6 +1,12 @@
 import database from '@react-native-firebase/database';
 
-export const senderMsg = async (msgValue, currentUserId, guestUserId, date) => {
+export const senderMsg = async (
+  msgValue,
+  currentUserId,
+  guestUserId,
+  date,
+  key,
+) => {
   // console.log(
   //   'inside sender function',
   //   msgValue,
@@ -12,7 +18,8 @@ export const senderMsg = async (msgValue, currentUserId, guestUserId, date) => {
     return await database()
       .ref('messeges/' + currentUserId)
       .child(guestUserId)
-      .push({
+      .child(key)
+      .set({
         messege: {
           sender: currentUserId,
           reciever: guestUserId,
@@ -32,6 +39,7 @@ export const recieverMsg = async (
   currentUserId,
   guestUserId,
   date,
+  key,
 ) => {
   // console.log(
   //   'inside sender function',
@@ -44,7 +52,8 @@ export const recieverMsg = async (
     return await database()
       .ref('messeges/' + guestUserId)
       .child(currentUserId)
-      .push({
+      .child(key)
+      .set({
         messege: {
           sender: currentUserId,
           reciever: guestUserId,

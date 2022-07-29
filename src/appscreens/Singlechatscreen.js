@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import database from '@react-native-firebase/database';
@@ -188,11 +189,13 @@ const Singlechatscreen = ({navigation, route}) => {
     // _handlePushNotification();
     if (message) {
       _handlePushNotification();
+      const chatId = database().ref('messeges').push();
       senderMsg(
         message,
         userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''),
         guestData.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''),
         Date.now(),
+        chatId.key,
       );
       _chatUsers()
         .then(() => {})
@@ -203,10 +206,14 @@ const Singlechatscreen = ({navigation, route}) => {
         userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''),
         guestData.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''),
         Date.now(),
+        chatId.key,
       );
       _chatUsers()
         .then(() => {})
         .catch(err => {});
+    } else {
+      const chatId = database().ref('messeges').push();
+      Alert.alert(chatId.key);
     }
   };
   const _handlePushNotificationAudio = (channel, token) => {
@@ -393,6 +400,12 @@ const Singlechatscreen = ({navigation, route}) => {
       .ref('messeges')
       .child(userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
       .child(guestData.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
+      .child(id)
+      .remove();
+    database()
+      .ref('messeges')
+      .child(guestData.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
+      .child(userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
       .child(id)
       .remove();
   };
