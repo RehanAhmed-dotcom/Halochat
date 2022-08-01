@@ -140,7 +140,7 @@ const EditProfile = ({navigation}) => {
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}>
-                <Text>
+                <Text style={{color: 'black'}}>
                   {gender == 'Male'
                     ? 'Male'
                     : gender == 'Female'

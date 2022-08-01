@@ -208,7 +208,7 @@ const Contact = ({navigation}) => {
         })
       }
       style={{
-        borderBottomWidth: 0.25,
+        borderBottomWidth: 0.3,
         borderBottomColor: '#ccc',
         flexDirection: 'row',
         alignItems: 'center',

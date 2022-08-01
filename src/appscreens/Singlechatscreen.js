@@ -82,7 +82,7 @@ const Singlechatscreen = ({navigation, route}) => {
     // Fcm: 'Its rehan ahmed fcm coming from contact redux',
   };
   // console.log('guest dat', guestData);
-  // console.log('user dat', userData2);
+  console.log('user dat', userData2);
   const [JoinMeeting, setJoinMeeting] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);

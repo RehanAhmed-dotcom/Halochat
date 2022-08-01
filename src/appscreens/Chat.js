@@ -310,7 +310,7 @@ const Chat = ({navigation}) => {
                         }}
                         style={{
                           paddingVertical: 10,
-                          borderBottomWidth: 0.25,
+                          borderBottomWidth: 0.3,
                           borderTopLeftRadius: 5,
                           borderTopRightRadius: 5,
                           backgroundColor: item.counter ? '#ccc' : 'white',
