@@ -38,7 +38,7 @@ const ChatComp = ({item, onDelete}) => {
             style={{
               flex: 1,
               // height: hp(100),
-              backgroundColor: '#00000088',
+              backgroundColor: '#000000',
               alignItems: 'center',
               justifyContent: 'center',
               zIndex: 200,
@@ -68,8 +68,8 @@ const ChatComp = ({item, onDelete}) => {
             <View
               style={{
                 height: '85%',
-                width: '90%',
-                // backgroundColor:"red",
+                width: '100%',
+                // backgroundColor: 'red',
                 alignItems: 'center',
                 justifyContent: 'center',
                 // backgroundColor: 'red',
@@ -90,7 +90,7 @@ const ChatComp = ({item, onDelete}) => {
     // </Modal>
   };
 
-  console.log('items', item);
+  // console.log('items', item);
 
   return (
     <View style={styles.chatContainerHeights}>

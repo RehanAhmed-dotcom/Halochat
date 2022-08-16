@@ -15,32 +15,39 @@ const PushNotificationsConfigs = {
         Store.dispatch(notificationAlert(true));
         const clicked = notification.userInteraction;
         if (clicked) {
-          console.log('new on notification log', notification);
-          if (notification.data.type === 'audio') {
-            RootNavigation.navigate('Jitsi', {
-              callType: 'audio',
-              guestData: notification.data.guestData,
-              channel: notification.data.channel,
-              token: notification.data.token,
-            });
-          } else if (notification.data.type === 'video') {
-            RootNavigation.navigate('Jitsi', {
-              callType: 'video',
-              guestData: notification.data.guestData,
-              channel: notification.data.channel,
-              token: notification.data.token,
-            });
-          }
+          if (
+            notification.data.type === 'audio' ||
+            notification.data.type === 'video'
+          ) {
+            console.log('new on notification log', notification);
+            if (notification.data.type === 'audio') {
+              RootNavigation.navigate('Jitsi', {
+                callType: 'audio',
+                guestData: notification.data.guestData,
+                channel: notification.data.channel,
+                token: notification.data.token,
+              });
+            } else if (notification.data.type === 'video') {
+              RootNavigation.navigate('Jitsi', {
+                callType: 'video',
+                guestData: notification.data.guestData,
+                channel: notification.data.channel,
+                token: notification.data.token,
+              });
+            }
 
-          RNCallKeep.displayIncomingCall(
-            uuidv4(),
-            notification.data.channel,
-            notification.data.guestData.Name ??
-              notification.data.guestData.Number,
-            '',
-            'number',
-            notification.data.type == 'video',
-          );
+            RNCallKeep.displayIncomingCall(
+              uuidv4(),
+              notification.data.channel,
+              notification.data.guestData.Name ??
+                notification.data.guestData.Number,
+              '',
+              'number',
+              notification.data.type == 'video',
+            );
+          } else {
+            console.log('new on notification log', notification);
+          }
           // if (notification.data.type === 'apply_job') {
           //   const data = JSON.parse(notification.data.job_data);
           //   console.log('data', data.image);

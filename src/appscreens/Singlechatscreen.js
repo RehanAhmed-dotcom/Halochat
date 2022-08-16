@@ -6,12 +6,14 @@ import {
   StyleSheet,
   Keyboard,
   TouchableOpacity,
+  Modal,
   Text,
   View,
   Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import database from '@react-native-firebase/database';
+import CrossIcon from 'react-native-vector-icons/Entypo';
 import {recieverMsg, senderMsg} from '../components/messageUtils';
 import {useDispatch, useSelector} from 'react-redux';
 import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
@@ -53,9 +55,111 @@ const Singlechatscreen = ({navigation, route}) => {
   const image = route?.params?.image;
   const number = route?.params?.number;
   const [type, setType] = useState('');
+  const [imgshow, setImgShow] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [showonlyImage, setShowOnlyImage] = useState(false);
   const {userdata, token} = useSelector(({USER}) => USER.userData);
-
+  const onlyImageModal = () => (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={showonlyImage}
+      onRequestClose={() => {
+        // Alert.alert("Modal has been closed.");
+        setShowOnlyImage(!showonlyImage);
+        setMessage('');
+      }}>
+      <View
+        style={{
+          flex: 1,
+          // height: hp(100),
+          backgroundColor: '#000000',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 200,
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          // position: 'absolute',
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            justifyContent: 'flex-end',
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              setMessage('');
+              setShowOnlyImage(!showonlyImage);
+            }}
+            style={{
+              height: 30,
+              width: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <CrossIcon color={'white'} size={25} name="squared-cross" />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: '85%',
+            width: '100%',
+            // backgroundColor: 'red',
+            alignItems: 'center',
+            justifyContent: 'center',
+            // backgroundColor: 'red',
+            // borderRadius: 25,
+          }}>
+          <Image
+            source={{uri: imgshow}}
+            style={{height: '100%', width: '100%'}}
+            resizeMode="contain"
+          />
+          {/* <ActivityIndicator size="small" color="black" /> */}
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            justifyContent: 'flex-end',
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              setMessage('');
+              setShowOnlyImage(!showonlyImage);
+            }}
+            style={{
+              height: 30,
+              width: 30,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 50,
+                height: 50,
+                width: 50,
+                marginRight: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <SendIcon
+                name={'send'}
+                size={30}
+                // style={{marginLeft: 12}}
+                color={Colors.mainColor}
+                onPress={handleSend}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
   const guestData = {
     Name: route?.params.name,
     Image: route?.params.image,
@@ -67,7 +171,7 @@ const Singlechatscreen = ({navigation, route}) => {
     Fcm: route?.params?.fcm,
     // Fcm: 'its guest fcm coming from chat list ',
   };
-  console.log('guset', guestData);
+  // console.log('guset', guestData);
   const userData2 = {
     Name: userdata.firstname
       ? `${userdata.firstname} ${userdata.lastname}`
@@ -82,7 +186,7 @@ const Singlechatscreen = ({navigation, route}) => {
     // Fcm: 'Its rehan ahmed fcm coming from contact redux',
   };
   // console.log('guest dat', guestData);
-  console.log('user dat', userData2);
+  // console.log('user dat', userData2);
   const [JoinMeeting, setJoinMeeting] = useState(false);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -103,7 +207,7 @@ const Singlechatscreen = ({navigation, route}) => {
       hideSubscription.remove();
     };
   }, []);
-  console.log('messages', messages);
+  // console.log('messages', messages);
   const disappearingMessageHandler = () => {
     setInterval(() => {
       const now = Date.now();
@@ -186,8 +290,10 @@ const Singlechatscreen = ({navigation, route}) => {
   // };
   const handleSend = () => {
     setMessage('');
+
     // _handlePushNotification();
     if (message) {
+      setShowOnlyImage(false);
       _handlePushNotification();
       const chatId = database().ref('messeges').push();
       senderMsg(
@@ -213,7 +319,8 @@ const Singlechatscreen = ({navigation, route}) => {
         .catch(err => {});
     } else {
       const chatId = database().ref('messeges').push();
-      Alert.alert(chatId.key);
+      // Alert.alert(chatId.key);
+      console.log('error');
     }
   };
   const _handlePushNotificationAudio = (channel, token) => {
@@ -325,7 +432,7 @@ const Singlechatscreen = ({navigation, route}) => {
       notification: {
         id: `${userData1.name}`,
         title: `${userData1.name}`,
-        body: message,
+        body: message.slice(-4) === '.jpg' ? 'Image' : message,
       },
       data: {guestData: guestData, type: 'message'},
       to: guestData.Fcm,
@@ -347,7 +454,7 @@ const Singlechatscreen = ({navigation, route}) => {
   };
   const _chatUsers = async () => {
     try {
-      console.log('guest in chat', guestData);
+      // console.log('guest in chat', guestData);
       database()
         .ref(
           'users/' + userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''),
@@ -395,7 +502,7 @@ const Singlechatscreen = ({navigation, route}) => {
   //     .child('messege'),
   // );
   const deleteMessage = async (id, msg) => {
-    console.log('checking', id);
+    // console.log('checking', id);
     database()
       .ref('messeges')
       .child(userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
@@ -440,7 +547,10 @@ const Singlechatscreen = ({navigation, route}) => {
       width: 1000,
       height: 1000,
       cropping: false,
+      mediaType: 'photo',
     }).then(image => {
+      setImgShow(image.path);
+      setShowOnlyImage(!showonlyImage);
       const data = new FormData();
       data.append('image', {
         uri: image.path,
@@ -488,18 +598,18 @@ const Singlechatscreen = ({navigation, route}) => {
     pc.current = new RTCPeerConnection(configuration);
     const stream = await Utils.getStream();
     if (stream) {
-      console.log('stream', stream);
+      // console.log('stream', stream);
       setLocalStream(stream);
       pc.current.addStream(stream);
     }
 
     pc.current.onaddstream = event => {
-      console.log('i am the event set to remote stream', event);
+      // console.log('i am the event set to remote stream', event);
       setRemoteStream(event.stream);
     };
   };
   const create = async () => {
-    console.log('Calling');
+    // console.log('Calling');
     connecting.current = true;
 
     await setupWebrtc();
@@ -576,7 +686,7 @@ const Singlechatscreen = ({navigation, route}) => {
     }
   };
   const collectIceCandidates = async (cRef, localName, remoteName) => {
-    console.log('local Name', localName);
+    // console.log('local Name', localName);
     const candidateCollection = cRef.collection(String(localName));
 
     if (pc.current) {
@@ -586,7 +696,7 @@ const Singlechatscreen = ({navigation, route}) => {
         }
       };
     }
-    console.log('remote stream', remoteStream);
+    // console.log('remote stream', remoteStream);
     cRef.collection(String(remoteStream)).onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type == 'added') {
@@ -649,7 +759,7 @@ const Singlechatscreen = ({navigation, route}) => {
                   callToken({Auth: token})
                     // callToken({Auth: token, channelName: `${unique}a`})
                     .then(res => {
-                      console.log('token', res.token);
+                      // console.log('token', res.token);
                       setShowModal(false);
                       // _handlePushNotificationAudio(
                       //   'Arish',
@@ -681,10 +791,10 @@ const Singlechatscreen = ({navigation, route}) => {
                 onPress={() => {
                   setShowModal(true);
                   const unique = new Date().valueOf();
-                  console.log('unique', unique);
+                  // console.log('unique', unique);
                   callToken({Auth: token, channelName: `${unique}a`})
                     .then(res => {
-                      console.log('token', res);
+                      // console.log('token', res);
                       setShowModal(false);
                       _handlePushNotificationVideo(res.channelName, res.token);
                       // _handlePushNotificationVideo(
@@ -776,6 +886,10 @@ const Singlechatscreen = ({navigation, route}) => {
             ]}
             // style={styles.updatedChatContainer}
           >
+            {/* {imgshow ? (
+            
+              <Image source={{uri: imgshow}} style={{width: 50, height: 50}} />
+            ) : ( */}
             <Camera
               name={'camera'}
               size={22}
@@ -783,6 +897,8 @@ const Singlechatscreen = ({navigation, route}) => {
               color={Colors.grey}
               onPress={Picker}
             />
+            {/* )} */}
+
             <InputField
               placeholder={'Write a message here...'}
               placeholderTextColor={'grey'}
@@ -808,6 +924,7 @@ const Singlechatscreen = ({navigation, route}) => {
         </>
       )}
       {myModal(showModal)}
+      {onlyImageModal()}
     </Wrapper>
   );
 };

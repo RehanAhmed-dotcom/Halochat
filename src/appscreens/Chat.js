@@ -395,7 +395,7 @@ const Chat = ({navigation}) => {
                             <View
                               style={{
                                 height: 30,
-                                width: 100,
+                                width: 250,
                                 // backgroundColor: 'red',
                               }}>
                               <Text numberOfLines={1} style={styles.MsgTxt}>
