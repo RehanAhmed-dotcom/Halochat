@@ -31,7 +31,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
       RNCallKeep.displayIncomingCall(
         uuidv4(),
         remoteMessage.data.channel ?? 'halochat',
-        remoteMessage.data.Name ?? remoteMessage.data.Number ?? 'HaloChat User',
+        remoteMessage.data.Name ?? remoteMessage.data.Number ?? 'PapiChat User',
         '',
         'number',
         remoteMessage.data.type == 'video',

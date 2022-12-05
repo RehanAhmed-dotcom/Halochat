@@ -76,6 +76,16 @@ const Chat = ({navigation}) => {
       .ref('users/' + number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
       .child(userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
       .remove();
+    database()
+      .ref(
+        'messeges/' + userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''),
+      )
+      .child(number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
+      .remove();
+    database()
+      .ref('messeges/' + number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
+      .child(userData2.Number.slice(-10).replace(/[^a-zA-Z0-9 ]/g, ''))
+      .remove();
   };
 
   const userData2 = {
@@ -193,7 +203,7 @@ const Chat = ({navigation}) => {
           //   style={{marginRight: 12, marginTop: 0}}
           // />
         }
-        title={'HaloChats'}
+        title={'PapiChats'}
         titlestyle={{bottom: 35}}
         Icon={
           <Image

@@ -28,7 +28,7 @@ const Splash = ({navigation}) => {
         }}>
         <Image
           resizeMode="contain"
-          source={require('../assets/MainLogoApp.png')}
+          source={require('../assets/PapiChats.png')}
           style={{height: 150, width: 150}}
         />
       </ImageBackground>

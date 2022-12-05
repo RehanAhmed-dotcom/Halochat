@@ -89,7 +89,7 @@ static void InitializeFlipper(UIApplication *application) {
   [FIRMessaging messaging].autoInitEnabled = YES;
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
    [RNCallKeep setup:@{
-    @"appName": @"HaloChat",
+    @"appName": @"PapiChat",
     @"maximumCallGroups": @1,
     @"maximumCallsPerCallGroup": @1,
     @"supportsVideo": @YES,

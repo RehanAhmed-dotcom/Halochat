@@ -54,7 +54,7 @@ const App = () => {
             remoteMessage.data.channel ?? 'halochat',
             remoteMessage.data.Name ??
               remoteMessage.data.Number ??
-              'HaloChat User',
+              'PapiChat User',
             '',
             'number',
             remoteMessage.data.type == 'video',
