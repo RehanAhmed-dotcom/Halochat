@@ -14,6 +14,7 @@ import RNCallKeep from 'react-native-callkeep';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
+  // const data = JSON.parse(remoteMessage.data.guestData);
   if (
     remoteMessage.data.type == 'audio' ||
     remoteMessage.data.type == 'video'
@@ -30,8 +31,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
     ).then(() => {
       RNCallKeep.displayIncomingCall(
         uuidv4(),
-        remoteMessage.data.channel ?? 'PapiChat',
-        remoteMessage.data.Name ?? remoteMessage.data.Number ?? 'PapiChat User',
+        remoteMessage.notification.title ?? 'PapiChat',
+        remoteMessage.notification.title ?? 'PapiChat User',
         '',
         'number',
         remoteMessage.data.type == 'video',

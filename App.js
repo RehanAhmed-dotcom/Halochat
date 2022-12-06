@@ -35,6 +35,8 @@ const App = () => {
     getNotifications();
     Platform.OS === 'android' && _createChannel();
     const unsubscribe = messaging().onMessage(remoteMessage => {
+      // const data = JSON.parse(remoteMessage.data.guestData);
+      console.log('data in app', remoteMessage);
       if (
         remoteMessage.data.type == 'audio' ||
         remoteMessage.data.type == 'video'
@@ -51,10 +53,8 @@ const App = () => {
         ).then(() => {
           RNCallKeep.displayIncomingCall(
             uuidv4(),
-            remoteMessage.data.channel ?? 'PapiChat',
-            remoteMessage.data.Name ??
-              remoteMessage.data.Number ??
-              'PapiChat User',
+            remoteMessage.notification.title ?? 'PapiChat',
+            remoteMessage.notification.title ?? 'PapiChat User',
             '',
             'number',
             remoteMessage.data.type == 'video',
