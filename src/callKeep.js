@@ -8,6 +8,7 @@ export const initializeCallKeep = async () => {
     RNCallKeep.setup({
       ios: {
         appName: 'PapiChat',
+        includesCallsInRecents: false,
       },
       android: {
         alertTitle: 'Permissions required',

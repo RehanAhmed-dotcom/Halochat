@@ -30,7 +30,7 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
     ).then(() => {
       RNCallKeep.displayIncomingCall(
         uuidv4(),
-        remoteMessage.data.channel ?? 'halochat',
+        remoteMessage.data.channel ?? 'PapiChat',
         remoteMessage.data.Name ?? remoteMessage.data.Number ?? 'PapiChat User',
         '',
         'number',
